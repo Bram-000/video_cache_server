@@ -1,16 +1,40 @@
 # video_cache_server
 
-A video cache
+A Flutter plugin that provides video caching functionality by running a local HTTP server to proxy and cache video content.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/to/develop-plugins),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+- Caches video content for offline playback
+- Supports multiple platforms: Android, iOS, macOS, Windows, Linux, and Web
+- Handles m3u8 (HLS) video streams
+- Supports range requests for efficient streaming
+- Customizable cache directory and server configuration
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Getting started
 
-# video_cache_server
+Add the package to your `pubspec.yaml`:
+
+```yaml  
+dependencies:  
+  video_cache_server: ^0.0.3
+```
+
+## Usage
+```dart  
+import 'package:video_cache_server/video_cache_server.dart';
+
+// Initialize the cache server  
+final cacheServer = await VideoCacheServer(
+cacheDir: '/path/to/cache/directory',
+).start();
+
+// Convert a video URL to a cached URL  
+final videoUrl = 'https://example.com/video.mp4';
+final cachedUrl = cacheServer.getProxyUrl(videoUrl);
+
+// Use the cached URL with your video player  
+// ...  
+
+// When done, stop the server  
+await cacheServer.stop();
+```
